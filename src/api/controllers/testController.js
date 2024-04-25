@@ -1,4 +1,4 @@
-const AppError = require("../../utils/appError");
+const AppError = require("../utils/AppError");
 
 exports.testFunction = (req, res, next) => {
   res.status(200).json({
@@ -7,11 +7,9 @@ exports.testFunction = (req, res, next) => {
   });
 
   req.body = [email, password];
-  if(email){
+  if (email) {
     next(new AppError("Email bi trung", 400));
   }
-
-
 };
 
 exports.testError = (req, res, next) => {
