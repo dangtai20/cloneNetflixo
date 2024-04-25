@@ -11,6 +11,7 @@ const hpp = require("hpp");
 //: ******* ROUTE HANDLERS *******
 const AppError = require("./api/utils/AppError");
 const globalErrorHandler = require("./api/controllers/errorController");
+const filmRouter = require("./api/routes/filmRoutes");
 const testRouter = require("./api/routes/testRoutes");
 
 //: ******* START EXPRESS APP *******
@@ -52,6 +53,7 @@ app.use(xss());
 
 //: ******* ROUTES *******
 app.use("/api/v1/test", testRouter);
+app.use("/api/v1/films", filmRouter);
 
 //: ******* ERROR HANDLING *******
 // 1) Handle unhandled routes
