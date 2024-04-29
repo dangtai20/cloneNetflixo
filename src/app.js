@@ -42,6 +42,7 @@ app.use("/api", limiter);
 
 // 6) Body parser, reading data from body into req.body
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // 7) Data sanitization against NoSQL query injection
 app.use(mongoSanitize());

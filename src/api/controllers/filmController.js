@@ -1,6 +1,7 @@
 const Film = require("../models/FilmModel");
-const Categories = require("../models/CategoriesModel");
 const Countries = require("../models/CountriesModel");
+const Categories = require("../models/CategoriesModel");
+const Episodes = require("../models/EpisodeModel");
 const AppError = require("../utils/AppError");
 const catchAsync = require("../utils/catchAsync");
 
@@ -70,5 +71,30 @@ exports.getFilms = catchAsync(async (req, res, next) => {
       currentPage: page,
       totalPages: Math.ceil(count / limit),
     },
+  });
+});
+
+// @desc   Get film by slug
+// @route  GET /api/v1/films/:slug
+// @access Public
+
+exports.getFilmBySlug = catchAsync(async (req, res, next) => {
+  const projection = { __v: 0 };
+
+  const film = await Film.findOne({ slug: req.params.slug }, projection)
+    .populate("categories", "-__v")
+    .populate("countries", "-__v")
+    .exec();
+
+  if (!film) {
+    return next(new AppError("No film found", 404));
+  }
+
+  const episodes = await Episodes.find({ film_id: film._id });
+  film.episodes = episodes;
+
+  res.status(200).json({
+    status: "success",
+    data: film,
   });
 });

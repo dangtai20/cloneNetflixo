@@ -7,4 +7,6 @@ const router = express.Router();
 
 router.route("/").get(filmController.getFilms);
 
+router.route("/:slug").get(filmController.getFilmBySlug);
+
 module.exports = router;
