@@ -100,7 +100,12 @@ const filmSchema = new mongoose.Schema(
     ],
   },
   {
-    toJSON: { virtuals: true },
+    toJSON: {
+      virtuals: true,
+      transform: function (doc, ret) {
+        delete ret.id;
+      },
+    },
     toObject: { virtuals: true },
   }
 );
