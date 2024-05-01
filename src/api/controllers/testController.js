@@ -1,4 +1,4 @@
-const AppError = require("../../utils/appError");
+const AppError = require("../utils/AppError");
 
 exports.testFunction = (req, res, next) => {
   res.status(200).json({

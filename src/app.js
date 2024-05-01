@@ -8,10 +8,16 @@ const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 
+// Models
+require("./api/models/UserModel");
+
+
 //: ******* ROUTE HANDLERS *******
 const AppError = require("./api/utils/AppError");
 const globalErrorHandler = require("./api/controllers/errorController");
 const testRouter = require("./api/routes/testRoutes");
+// ========================================
+const userRouter = require("./api/routes/userRoutes");
 
 //: ******* START EXPRESS APP *******
 const app = express();
@@ -52,6 +58,7 @@ app.use(xss());
 
 //: ******* ROUTES *******
 app.use("/api/v1/test", testRouter);
+app.use("/users", userRouter);
 
 //: ******* ERROR HANDLING *******
 // 1) Handle unhandled routes
